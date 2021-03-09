@@ -7,13 +7,43 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Popup Name="myPopup">
-            <TextBlock Name="myPopupText" 
-                 Background="LightBlue" 
-                 Foreground="Blue">
-        Popup Text
-            </TextBlock>
-        </Popup>
+    <DockPanel>
+        
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem x:Name="NewTask" Header="New Task"/>
+                
+                <MenuItem Header="Close" Click="MenuItem_Click"/>
+            </MenuItem>
+            <Separator Width="1" Foreground="Black"/>
+            <MenuItem Header="Edit" Click="MenuItem_Click_1">
+                <MenuItem x:Name="ChangePath" Header="Change List Path"/>
+            </MenuItem>
 
+        </Menu>
+        <ListView DockPanel.Dock="Left" Background="LightGray" x:Name="TaskList" SelectionChanged="TaskList_SelectionChanged" >
+            
+            
+        </ListView>
+        <Grid DockPanel.Dock="Right">
+            <StackPanel>
+                <TextBlock x:Name="TaskName" FontSize="30" Margin="5"/>
+                <TextBlock x:Name="TaskNotes" Height="40" TextWrapping="Wrap" Margin="5"/>
+                    <DataGrid x:Name="TaskStepList" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" AutoGenerateColumns="False"
+                               EnableRowVirtualization="false" EnableColumnVirtualization="false" GridLinesVisibility="Horizontal" Margin="0, 5, 0, 0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*" Header="Steps" Binding="{Binding Path=stepname}" />
+                            <DataGridTextColumn Width="*" Header="Progress" Binding="{Binding Path=stepstate}"/>
+                            <DataGridTextColumn Width="*" Header="Priority" Binding="{Binding Path=priority}"/>
+                        </DataGrid.Columns>
+                        
+                    </DataGrid>
+                    <Button x:Name="butun" Click="butun_Click" Content="Cool Test Button" />
+                </StackPanel>
+            
+        </Grid>
+        
+
+    </DockPanel>
     </Grid>
 </Window>

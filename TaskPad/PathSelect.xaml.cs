@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace TaskPad
 {
@@ -22,6 +23,21 @@ namespace TaskPad
         public PathSelect()
         {
             InitializeComponent();
+            this.PathText.Text = AppDomain.CurrentDomain.BaseDirectory;
+            this.FileName.Text = Environment.UserName + "TaskList";
+
+        }
+        
+        
+        
+
+        private void SelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settings = new Settings();
+            string full = this.PathText.Text + this.FileName.Text + ".json";
+            settings.AddPath(full);
+            this.Close();
+
         }
     }
 }

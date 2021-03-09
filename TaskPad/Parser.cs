@@ -48,39 +48,33 @@ namespace TaskPad
 
     }
 
-
-
-
     class Parser
     {
         //Json file path
         private string path;
-        private string tempJson;
+
         public Parser(string pathToJson)
         {
-            this.path = pathToJson;
-            this.tempJson = @"[
-    {
-        'name': 'TempTask%&%&%&%',
-        'notes': 'Task made because File was empty.',
-        'steps': []
-    }
-]";
+            this.path = pathToJson;    
         }
         //Reads JSON file
         public string readJson()
         {
-            if (File.Exists(this.path))
+            
+                if (File.Exists(this.path))
             {
-                Console.WriteLine("File exists");
-                if (@File.ReadAllText(this.path).Trim().Equals(""))
-                {
-                    reWrite(this.tempJson);
-                }
-
-                return @File.ReadAllText(this.path);
+                
+                    Console.WriteLine("File exists");
+                    if (@File.ReadAllText(this.path).Trim().Equals(""))
+                    {
+                    reWrite("[]");
+                    }
+                        return @File.ReadAllText(this.path);
             }
-            return null;
+
+            File.WriteAllText(this.path, "[]");
+
+                    return @File.ReadAllText(this.path);
         }
 
         //Check if task exist
@@ -175,7 +169,7 @@ namespace TaskPad
             }
         }
 
-        //Method to help make new steps and returns the step as a list.
+        //Method to help make new steps and returns the step as object
         public Step makeStep(string makeStepname, Priority makePriority)
         {
 
@@ -196,6 +190,14 @@ namespace TaskPad
             List<Step> stepList = new List<Step>();
             stepList.Add(newStep);
             return stepList;
+        }
+
+        //Returns empty list
+        public List<Step> makeStepList()
+        {
+            
+           
+            return new List<Step>();
         }
 
 
@@ -375,11 +377,65 @@ namespace TaskPad
                 notes = addNotes,
                 steps = addSteps
             };
+
+
             //Adding the new object to the list
             taskList.Add(added);
 
             //Rewrites Json
             reWrite(serializeTask(taskList));
         }
+
+        //Returns a list of the tasknames
+        public List<string> GetTaskNames()
+        {
+            List<string> taskNames = new List<string>();
+            List<Task> taskList = deserializeTask(readJson());
+            foreach(Task task in taskList)
+            {
+                taskNames.Add(task.name);
+            }
+
+
+            return taskNames;
+        }
+
+        //Returns the task object that matches parameter
+        public Object getTask(string taskName)
+        {
+            List<Task> taskList = deserializeTask(readJson());
+            foreach(Task task in taskList)
+            {
+                if (task.name.Equals(taskName))
+                {
+                    return task;
+                }
+            }
+
+            return null;
+        }
+
+        public Object getStep(string taskName, string stepName)
+        {
+            List<Task> taskList = deserializeTask(readJson());
+            foreach (Task task in taskList)
+            {
+                if (task.name.Equals(taskName))
+                {
+                    foreach(Step step in task.steps)
+                    {
+                        if (step.stepname.Equals(stepName))
+                        {
+                            return step;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+    
+
     }
 }
+

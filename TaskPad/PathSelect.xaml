@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskPad"
         mc:Ignorable="d"
-        Title="PathSelect" Height="450" Width="800">
+        Title="PathSelect" Height="320" Width="500" WindowStartupLocation="CenterScreen">
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -26,20 +26,22 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
                 <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Text="Path:"/>
-                <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Text="FileName:"/>
+                <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Text="Filename:" />
 
-                <TextBox Grid.Column="1" Grid.Row="0" Width="200" Margin="10, 0, 0, 20"/>
-            <TextBox Grid.Column="1" Grid.Row="1" Width="200" Margin="10, 0, 0, 0"/>
-                
+            <TextBox Height="20" Grid.Column="1" Grid.Row="0" Width="200" Margin="10, 0, 0, 20" Name="PathText"/>
+            <TextBox Height="20" Grid.Column="1" Grid.Row="1" Width="200" Margin="10, 0, 0, 20" Name="FileName"/>
+            <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Height="25" Name="SelectButton" Content="Select Path" Click="SelectButton_Click"/>
 
-            </Grid>
+        </Grid>
             
 
         
